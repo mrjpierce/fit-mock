@@ -1,0 +1,28 @@
+{
+  "name": "fit-mock",
+  "version": "0.0.1",
+  "description": "An effortless TypeScript first mocking library",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf out;",
+    "build": "yarn clean; tsc -p .",
+    "test": "yarn build; jest --coverage;",
+    "watch": "yarn build; jest;"
+  },
+  "keywords": [
+    "mock",
+    "moq",
+    "test",
+    "testing",
+    "typescript"
+  ],
+  "author": "James M Pierce",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.11",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  }
+}
