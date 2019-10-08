@@ -30,24 +30,6 @@ export class Mock<T extends object> {
     return true;
   }
 
-  private _intercept(target: T, prop: string | number | symbol): any {
-    return (...args: any[]) => {
-      const correctSig = this._callSignatures.find((sig) => {
-        if(sig.prop === prop && Mock._argsEqual(sig.args, args)) {
-          return true;
-        }
-      });
-
-      if (correctSig) {
-        console.log("-intercept-", correctSig);
-        return correctSig.returns;
-      } else {
-        console.log("-pass-though-", target[prop]);
-        return target[prop](...args);
-      }
-    }
-  }
-
   private _scapeCallSignature<TResult>(call: Func<T, TResult>): ICallSignature {
     let scrapedProp: string | number | symbol;
     let scrapedArgs: any[];
@@ -69,6 +51,24 @@ export class Mock<T extends object> {
       prop: scrapedProp,
       args: scrapedArgs
     };
+  }
+
+  private _intercept(target: T, prop: string | number | symbol): any {
+    return (...args: any[]) => {
+      const correctSig = this._callSignatures.find((sig) => {
+        if(sig.prop === prop && Mock._argsEqual(sig.args, args)) {
+          return true;
+        }
+      });
+
+      if (correctSig) {
+        console.log("-intercept-", correctSig);
+        return correctSig.returns;
+      } else {
+        console.log("-pass-though-", target[prop]);
+        return target[prop](...args);
+      }
+    }
   }
 
   constructor(ctor: CtorWithArgs<T>, ...args: any[]) {
